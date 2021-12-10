@@ -25,28 +25,6 @@ public class Connection {
     private JButton submitButton;
 
     public Connection() {
-        // Get database config from text file
-        String db_server, database, user, password;
-        List<String> connectInfo;
-        try {
-            connectInfo= appUtil.readConnectionInformationFromTextFile("databaseConfig.txt");
-            db_server = connectInfo.get(0);
-            database = connectInfo.get(1);
-            user = connectInfo.get(2);
-            password = connectInfo.get(3);
-        } catch (IOException ex) {
-            db_server = "";
-            database = "";
-            user = "";
-            password = "";
-        }
-
-        // set default config database
-        textField1.setText(db_server);
-        textField2.setText(database);
-        textField3.setText(user);
-        textField4.setText(password);
-
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,6 +52,32 @@ public class Connection {
         frameMain.setContentPane(panelMain);
         frameMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameMain.pack();
+    }
+
+    public void start() {
+        // Get database config from text file
+        String db_server, database, user, password;
+        List<String> connectInfo;
+        try {
+            connectInfo= appUtil.readConnectionInformationFromTextFile("databaseConfig.txt");
+            db_server = connectInfo.get(0);
+            database = connectInfo.get(1);
+            user = connectInfo.get(2);
+            password = connectInfo.get(3);
+        } catch (IOException ex) {
+            db_server = "";
+            database = "";
+            user = "";
+            password = "";
+        }
+
+        // set default config database
+        textField1.setText(db_server);
+        textField2.setText(database);
+        textField3.setText(user);
+        textField4.setText(password);
+
+        // show frame
         frameMain.setVisible(true);
     }
 

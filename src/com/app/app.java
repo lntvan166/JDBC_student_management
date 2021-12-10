@@ -13,5 +13,6 @@ import java.io.IOException;
 public class app {
     public static void main(String[] args) throws IOException {
         Connection app = new Connection();
+        app.start();
     }
 }
