@@ -1,6 +1,9 @@
 package com.connection;
 
 import com.app.appUtil;
+import com.manager.Student;
+import com.manager.StudentList;
+import com.menu.Menu;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,9 +19,10 @@ import java.util.List;
  * Description: ...
  */
 public class ConnectionInfo {
+    public static Connection con;
+
     private final JFrame frameMain;
     private JPanel panelMain;
-    private JLabel title;
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
@@ -40,11 +44,15 @@ public class ConnectionInfo {
                 }
                 JOptionPane.showMessageDialog(null, "Saved!!");
                 // Connect db
-                connect(db_server, database, user, password);
+                StudentList studentList = connect(db_server, database, user, password);
 
 
                 // Close connection frame
                 frameMain.setVisible(false);
+
+                // Show menu
+                Menu menu = new Menu(studentList);
+                menu.start();
             }
         });
 
@@ -82,32 +90,33 @@ public class ConnectionInfo {
         frameMain.setVisible(true);
     }
 
-    public void connect(String db_server, String database, String user, String password) {
-        Connection con = null;
+    public StudentList connect(String db_server, String database, String user, String password) {
+        StudentList studentList = new StudentList();
+        Student temp;
+
         String connect_url = db_server + ";databaseName=" + database + ";user=" + user + ";password=" + password;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             con = DriverManager.getConnection(connect_url);
+            if (con!=null) System.out.println("Connected to database!");
 
+            assert con != null;
             Statement st = con.createStatement();
             String str_sql = "select * from student";
             ResultSet rs = st.executeQuery(str_sql);
 
             while (rs.next())
             {
-                String id = rs.getString(1);
-                String name = rs.getString(2);
-                float grade_point = rs.getFloat(3);
-                String image = rs.getString(4);
-                String address = rs.getString(5);
-                String note = rs.getString(6);
+                temp = new Student(rs.getString(1), rs.getString(2), rs.getFloat(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6));
 
-                System.out.println("ID: " + id + " - Name: " + name + " - Point: " + grade_point);
-
+                studentList.addStudent(temp);
             }
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
+
+        return studentList;
     }
 
     public static void main(String[] args) {
