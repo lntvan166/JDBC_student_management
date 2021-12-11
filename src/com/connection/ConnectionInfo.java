@@ -19,7 +19,6 @@ import java.util.List;
  * Description: ...
  */
 public class ConnectionInfo {
-    public static Connection con;
 
     private final JFrame frameMain;
     private JPanel panelMain;
@@ -28,6 +27,11 @@ public class ConnectionInfo {
     private JTextField textField3;
     private JTextField textField4;
     private JButton submitButton;
+
+    public static String db_server;
+    public static String database;
+    public static String user;
+    public static String password;
 
     public ConnectionInfo() {
         submitButton.addActionListener(new ActionListener() {
@@ -42,9 +46,14 @@ public class ConnectionInfo {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                JOptionPane.showMessageDialog(null, "Saved!!");
+
                 // Connect db
-                StudentList studentList = connect(db_server, database, user, password);
+                StudentList studentList = null;
+                try {
+                    studentList = connect(db_server, database, user, password);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex);
+                }
 
 
                 // Close connection frame
@@ -91,10 +100,11 @@ public class ConnectionInfo {
         frameMain.setVisible(true);
     }
 
-    public StudentList connect(String db_server, String database, String user, String password) {
+    public StudentList connect(String db_server, String database, String user, String password) throws SQLException {
         StudentList studentList = new StudentList();
         Student temp;
 
+        Connection con = null;
         String connect_url = db_server + ";databaseName=" + database + ";user=" + user + ";password=" + password;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -116,6 +126,14 @@ public class ConnectionInfo {
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
+
+        this.db_server = db_server;
+        this.database = database;
+        this.user = user;
+        this.password = password;
+
+        assert con != null;
+        con.close();
 
         return studentList;
     }

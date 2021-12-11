@@ -6,6 +6,8 @@ import com.menu.Menu;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * com.menu.components
@@ -14,7 +16,7 @@ import java.awt.event.ActionListener;
  * Description: ...
  */
 public class UpdateStudent {
-    private final JFrame frameMain;
+    private JFrame frameMain;
     private JPanel panelMain;
     private JButton updateButton;
     private JButton goBackButton;
@@ -27,13 +29,6 @@ public class UpdateStudent {
     private JComboBox<String> comboBox1;
 
     public UpdateStudent() {
-        frameMain = new JFrame("Update Student");
-        frameMain.setContentPane(panelMain);
-        frameMain.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frameMain.setLocationRelativeTo(null);
-        frameMain.pack();
-
-
         String[] idList = Menu.studentList.idList();
         for (String str : idList) {
             comboBox1.addItem(str);
@@ -65,7 +60,7 @@ public class UpdateStudent {
 
                 Student newStudent = new Student(id, name, gpa, img, address, note);
                 Menu.studentList.updateStudent(id, newStudent);
-                JOptionPane.showMessageDialog(null, "Student updated!");
+                JOptionPane.showMessageDialog(null, "Update successfully!");
 
                 Menu.frameMain.setVisible(true);
                 frameMain.dispose();
@@ -95,6 +90,18 @@ public class UpdateStudent {
     }
 
     public void start() {
+        frameMain = new JFrame("Update Student");
+        frameMain.setContentPane(panelMain);
+        frameMain.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frameMain.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                frameMain.dispose();
+                Menu.frameMain.setVisible(true);
+            }
+        });
+        frameMain.setLocationRelativeTo(null);
+        frameMain.pack();
         frameMain.setVisible(true);
     }
 }

@@ -6,6 +6,9 @@ import com.menu.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Objects;
 
 /**
  * com.menu.components
@@ -14,7 +17,7 @@ import java.awt.event.ActionListener;
  * Description: ...
  */
 public class AddStudent {
-    private final JFrame frameMain;
+    private JFrame frameMain;
 
     private JPanel panelMain;
     private JTextField textField2;
@@ -27,29 +30,25 @@ public class AddStudent {
     private JButton goBackButton;
 
     public AddStudent() {
-        frameMain = new JFrame("Add Student");
-        frameMain.setContentPane(panelMain);
-        frameMain.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frameMain.setLocationRelativeTo(null);
-        frameMain.pack();
-
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String id = textField1.getText();
                 String name = textField2.getText();
-                float gpa;
+                float gpa = 0;
                 try {
                     gpa = Float.parseFloat(textField3.getText());
                 } catch (Exception ex) {
-                    gpa = -1;
                     JOptionPane.showMessageDialog(null, "GPA must be a float number!");
                 }
                 String img = textField4.getText();
                 String address = textField5.getText();
                 String note = textField6.getText();
 
-                if(Menu.studentList.checkIdExist(id)) {
+                if(Objects.equals(id, "") || Objects.equals(name, "")
+                        || Objects.equals(img, "") || Objects.equals(address, "") || Objects.equals(note, "")) {
+                    JOptionPane.showMessageDialog(null, "Cannot add empty information!");
+                }  else if(Menu.studentList.checkIdExist(id)) {
                     JOptionPane.showMessageDialog(null, "Student id exist already!");
                 } else {
                     Student newStudent = new Student(id, name, gpa, img, address, note);
@@ -74,6 +73,18 @@ public class AddStudent {
     }
 
     public void start() {
+        frameMain = new JFrame("Add Student");
+        frameMain.setContentPane(panelMain);
+        frameMain.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frameMain.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                frameMain.dispose();
+                Menu.frameMain.setVisible(true);
+            }
+        });
+        frameMain.setLocationRelativeTo(null);
+        frameMain.pack();
         frameMain.setVisible(true);
 
     }}

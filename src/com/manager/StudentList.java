@@ -1,5 +1,6 @@
 package com.manager;
 
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -188,6 +189,42 @@ public class StudentList {
         }
 
         return result.toArray(new String[0]);
+    }
+
+    public static void saveIntoFile(String filename, StudentList list) throws IOException {
+        FileWriter fout;
+
+        fout = new FileWriter(filename);
+
+        String str = "Id,Name,GPA,Image,Address,Note\n";
+        fout.write(str);
+        fout.write(list.toString());
+        fout.close();
+    }
+
+    public static StudentList importFromFile(String filename) throws IOException {
+        StudentList result = new StudentList();
+
+        BufferedReader fin;
+        String line;
+        String id, name, image, address, note;
+        float gpa;
+        fin = new BufferedReader(new FileReader(filename));
+        line = fin.readLine();
+        while ((line = fin.readLine()) != null) {
+            String[] str = line.split(",");
+            id = str[0];
+            name = str[1];
+            gpa = Float.parseFloat(str[2]);
+            image = str[3];
+            address = str[4];
+            note = str[5];
+            Student newStudent = new Student(id, name, gpa, image, address, note);
+            result.addStudent(newStudent);
+        }
+        fin.close();
+
+        return result;
     }
 }
 
