@@ -1,4 +1,4 @@
-dbb
-da
-uss
-pa
+jdbc:sqlserver://localhost:1433
+Student_Management
+sa
+123456

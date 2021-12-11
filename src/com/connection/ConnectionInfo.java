@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * Date 12/10/2021 - 8:26 PM
  * Description: ...
  */
-public class Connection {
+public class ConnectionInfo {
     private final JFrame frameMain;
     private JPanel panelMain;
     private JLabel title;
@@ -24,7 +25,7 @@ public class Connection {
     private JTextField textField4;
     private JButton submitButton;
 
-    public Connection() {
+    public ConnectionInfo() {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -39,7 +40,7 @@ public class Connection {
                 }
                 JOptionPane.showMessageDialog(null, "Saved!!");
                 // Connect db
-
+                connect(db_server, database, user, password);
 
 
                 // Close connection frame
@@ -79,6 +80,34 @@ public class Connection {
 
         // show frame
         frameMain.setVisible(true);
+    }
+
+    public void connect(String db_server, String database, String user, String password) {
+        Connection con = null;
+        String connect_url = db_server + ";databaseName=" + database + ";user=" + user + ";password=" + password;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection(connect_url);
+
+            Statement st = con.createStatement();
+            String str_sql = "select * from student";
+            ResultSet rs = st.executeQuery(str_sql);
+
+            while (rs.next())
+            {
+                String id = rs.getString(1);
+                String name = rs.getString(2);
+                float grade_point = rs.getFloat(3);
+                String image = rs.getString(4);
+                String address = rs.getString(5);
+                String note = rs.getString(6);
+
+                System.out.println("ID: " + id + " - Name: " + name + " - Point: " + grade_point);
+
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     public static void main(String[] args) {

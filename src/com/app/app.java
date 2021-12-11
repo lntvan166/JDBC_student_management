@@ -1,6 +1,6 @@
 package com.app;
 
-import com.connection.Connection;
+import com.connection.ConnectionInfo;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class app {
     public static void main(String[] args) throws IOException {
-        Connection app = new Connection();
+        ConnectionInfo app = new ConnectionInfo();
         app.start();
     }
 }
