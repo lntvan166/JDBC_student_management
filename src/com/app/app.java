@@ -14,10 +14,10 @@ import java.io.IOException;
  */
 public class app {
     public static void main(String[] args) throws IOException {
-//        ConnectionInfo app = new ConnectionInfo();
-//        app.start();
+        ConnectionInfo app = new ConnectionInfo();
+        app.start();
 
-        AddStudent addStudent = new AddStudent();
-        addStudent.start();
+//        AddStudent addStudent = new AddStudent();
+//        addStudent.start();
     }
 }

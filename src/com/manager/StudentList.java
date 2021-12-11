@@ -156,5 +156,38 @@ public class StudentList {
         }
         return str.toString();
     }
+
+    public Student findById(String id) {
+        Student result = null;
+        for(Student std : list) {
+            if (Objects.equals(std.getId(), id)){
+                result = std;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public boolean checkIdExist(String id) {
+        boolean result = false;
+        for(Student std : list) {
+            if (Objects.equals(std.getId(), id)){
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    public String[] idList() {
+        List<String> result = new ArrayList<String>();
+        for(Student std : list) {
+            result.add(std.getId());
+        }
+
+        return result.toArray(new String[0]);
+    }
 }
 

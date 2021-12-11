@@ -1,5 +1,6 @@
 package com.menu.components;
 
+import com.manager.Student;
 import com.menu.*;
 
 import javax.swing.*;
@@ -29,11 +30,37 @@ public class AddStudent {
         frameMain = new JFrame("Add Student");
         frameMain.setContentPane(panelMain);
         frameMain.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frameMain.setLocationRelativeTo(null);
         frameMain.pack();
 
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String id = textField1.getText();
+                String name = textField2.getText();
+                float gpa;
+                try {
+                    gpa = Float.parseFloat(textField3.getText());
+                } catch (Exception ex) {
+                    gpa = -1;
+                    JOptionPane.showMessageDialog(null, "GPA must be a float number!");
+                }
+                String img = textField4.getText();
+                String address = textField5.getText();
+                String note = textField6.getText();
+
+                if(Menu.studentList.checkIdExist(id)) {
+                    JOptionPane.showMessageDialog(null, "Student id exist already!");
+                } else {
+                    Student newStudent = new Student(id, name, gpa, img, address, note);
+
+                    Menu.studentList.addStudent(newStudent);
+
+                    JOptionPane.showMessageDialog(null, "Student added!");
+
+                    Menu.frameMain.setVisible(true);
+                    frameMain.dispose();
+                }
 
             }
         });

@@ -79,7 +79,7 @@ public class Student_manager {
 
         Scanner scn = new Scanner(System.in);
         String id, name, img, address, note;
-        double gpa;
+        float gpa;
 
         System.out.println("\nEnter student information: ");
         System.out.print("Id: ");
@@ -87,7 +87,7 @@ public class Student_manager {
         System.out.print("Name: ");
         name = scn.nextLine();
         System.out.print("GPA: ");
-        gpa = scn.nextDouble();
+        gpa = scn.nextFloat();
         scn.nextLine();
         System.out.print("Image link: ");
         img = scn.nextLine();
@@ -115,7 +115,7 @@ public class Student_manager {
         }
         Scanner scn = new Scanner(System.in);
         String id, name, img, address, note;
-        double gpa;
+        float gpa;
 
         System.out.print("\nEnter student id you want to update: ");
         String newId = scn.nextLine();
@@ -130,7 +130,7 @@ public class Student_manager {
         System.out.print("Name: ");
         name = scn.nextLine();
         System.out.print("GPA: ");
-        gpa = scn.nextDouble();
+        gpa = scn.nextFloat();
         scn.nextLine();
         System.out.print("Image link: ");
         img = scn.nextLine();
@@ -246,7 +246,7 @@ public class Student_manager {
         BufferedReader fin;
         String line;
         String id, name, image, address, note;
-        double gpa;
+        float gpa;
         try {
             fin = new BufferedReader(new FileReader(filename));
 
@@ -259,7 +259,7 @@ public class Student_manager {
             String[] str = line.split(",");
             id = str[0];
             name = str[1];
-            gpa = Double.parseDouble(str[2]);
+            gpa = Float.parseFloat(str[2]);
             image = str[3];
             address = str[4];
             note = str[5];

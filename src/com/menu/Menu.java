@@ -35,6 +35,7 @@ public class Menu {
         frameMain = new JFrame("Student Management");
         frameMain.setContentPane(panelMain);
         frameMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameMain.setLocationRelativeTo(null);
         frameMain.pack();
 
         viewStudentListButton.addActionListener(new ActionListener() {
@@ -61,7 +62,9 @@ public class Menu {
         updateStudentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frameMain.setVisible(false);
+                UpdateStudent updateStudent = new UpdateStudent();
+                updateStudent.start();
             }
         });
         saveStudentListIntoButton.addActionListener(new ActionListener() {

@@ -60,6 +60,7 @@ public class ConnectionInfo {
         frameMain = new JFrame("Connection Information");
         frameMain.setContentPane(panelMain);
         frameMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameMain.setLocationRelativeTo(null);
         frameMain.pack();
     }
 

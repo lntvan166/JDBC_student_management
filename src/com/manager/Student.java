@@ -13,7 +13,7 @@ public class Student {
 
     private String id;
     private String name;
-    private double gpa;
+    private float gpa;
     private String img;
     private String address;
     private String note;
@@ -24,7 +24,7 @@ public class Student {
     public Student() {
         id = "";
         name = "";
-        gpa = 0.0;
+        gpa = 0.0F;
         img = "";
         address = "";
         note = "";
@@ -39,7 +39,7 @@ public class Student {
      * @param address student address
      * @param note note
      */
-    public Student(String id, String name, double gpa, String img, String address, String note) {
+    public Student(String id, String name, float gpa, String img, String address, String note) {
         this.id = id;
         this.name = name;
         this.gpa = gpa;
@@ -105,7 +105,7 @@ public class Student {
      * Setter of student gpa
      * @param gpa gpa (double)
      */
-    public void setGpa(double gpa) {
+    public void setGpa(float gpa) {
         this.gpa = gpa;
     }
 
