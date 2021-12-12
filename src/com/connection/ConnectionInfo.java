@@ -84,8 +84,8 @@ public class ConnectionInfo {
             user = connectInfo.get(2);
             password = connectInfo.get(3);
         } catch (IOException ex) {
-            db_server = "";
-            database = "";
+            db_server = "jdbc:sqlserver://localhost:1433";
+            database = "Student_Management";
             user = "";
             password = "";
         }

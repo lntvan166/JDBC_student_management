@@ -21,6 +21,7 @@ public class ImportCSV {
     private JPanel panelMain;
     private JTextField textField1;
     private JButton button1;
+    private JButton goBackButton;
 
     public ImportCSV() {
         button1.addActionListener(new ActionListener() {
@@ -34,6 +35,13 @@ public class ImportCSV {
                     JOptionPane.showMessageDialog(null, "Cannot open file");
                 }
 
+                Menu.frameMain.setVisible(true);
+                frameMain.dispose();
+            }
+        });
+        goBackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 Menu.frameMain.setVisible(true);
                 frameMain.dispose();
             }

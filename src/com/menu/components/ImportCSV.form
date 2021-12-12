@@ -68,6 +68,12 @@
               <text value="Submit"/>
             </properties>
           </component>
+          <component id="7632e" class="javax.swing.JButton" binding="goBackButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Go back"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

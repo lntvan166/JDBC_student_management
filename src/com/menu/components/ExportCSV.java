@@ -21,6 +21,7 @@ public class ExportCSV {
     private JTextField textField1;
     private JButton button1;
     private JPanel panelMain;
+    private JButton goBackButton;
 
     public ExportCSV() {
         button1.addActionListener(new ActionListener() {
@@ -34,6 +35,13 @@ public class ExportCSV {
                     JOptionPane.showMessageDialog(null, ex);
                 }
 
+                Menu.frameMain.setVisible(true);
+                frameMain.dispose();
+            }
+        });
+        goBackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 Menu.frameMain.setVisible(true);
                 frameMain.dispose();
             }
